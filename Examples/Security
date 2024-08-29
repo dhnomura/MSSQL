@@ -1,0 +1,37 @@
+create database Chapter10;
+go
+
+use chapter10
+go
+
+create table dbo.sensitivedata
+(
+ID INT PRIMARY KEY IDENTITY,
+SensitiveText NVARCHAR(100)
+);
+
+DECLARE @Numbers TABLE
+(
+ID INT
+)
+;
+
+WITH CTE(Num)
+AS(
+select 1 as num
+union all
+select num + 1
+from cte
+where num < 100
+)
+
+insert into @Numbers
+select Num from CTE;
+
+INSERT into dbo.sensitiveData
+select 'SampleData'
+from @Numbers;
+
+
+------
+
